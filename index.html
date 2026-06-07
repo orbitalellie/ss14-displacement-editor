@@ -3,9 +3,9 @@
 
 <head>
     <title>SS14 Displacement Map Editor</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.colors.min.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.violet.min.css">
-    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.colors.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.violet.min.css" />
+    <link rel="stylesheet" href="css/styles.css" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <script src="js/main.js" defer></script>
 </head>
@@ -15,53 +15,53 @@
         <article>
             <fieldset>
                 <legend>Tools</legend>
-                <input type="radio" id="forward" name="tool" checked>
+                <input type="radio" id="forward" name="tool" checked />
                 <label for="forward">Forward Select</label>
-                <input type="radio" id="reverse" name="tool">
+                <input type="radio" id="reverse" name="tool" />
                 <label for="reverse">Reverse Select</label>
-                <input type="radio" id="paint" name="tool">
+                <input type="radio" id="paint" name="tool" />
                 <label for="paint">Paint Displacement</label>
-                <input type="radio" id="mask" name="tool">
+                <input type="radio" id="mask" name="tool" />
                 <label for="set">Mask</label>
             </fieldset>
-            <div class="grid" id="selectControls" style="max-width: 600px;">
-                <fieldset role="group" class="pico-background-violet-600" style="padding: 5px;" id="fromGroup">
+            <div class="grid" id="selectControls" style="max-width: 600px">
+                <fieldset role="group" class="pico-background-violet-600" style="padding: 5px" id="fromGroup">
                     <div>
                         <label for="fromX">From X</label>
-                        <input type="input" id="fromX" placeholder="X" aria-label="Read-only input" readonly>
+                        <input type="input" id="fromX" placeholder="X" aria-label="Read-only input" readonly />
                     </div>
                     <div>
                         <label for="fromY">From Y</label>
-                        <input type="input" id="fromY" placeholder="Y" aria-label="Read-only input" readonly>
+                        <input type="input" id="fromY" placeholder="Y" aria-label="Read-only input" readonly />
                     </div>
                 </fieldset>
-                <fieldset role="group" style="padding: 5px;" id="toGroup">
+                <fieldset role="group" style="padding: 5px" id="toGroup">
                     <div>
                         <label for="toX">To X</label>
-                        <input type="input" id="toX" placeholder="X" aria-label="Read-only input" readonly>
+                        <input type="input" id="toX" placeholder="X" aria-label="Read-only input" readonly />
                     </div>
                     <div>
                         <label for="toY">To Y</label>
-                        <input type="input" id="toY" placeholder="Y" aria-label="Read-only input" readonly>
+                        <input type="input" id="toY" placeholder="Y" aria-label="Read-only input" readonly />
                     </div>
                 </fieldset>
             </div>
-            <div class="grid" id="paintControls" style="max-width: 600px; display: none;">
-                <fieldset role="group" style="padding: 5px;">
+            <div class="grid" id="paintControls" style="max-width: 600px; display: none">
+                <fieldset role="group" style="padding: 5px">
                     <div>
                         <label for="moveX">X Offset</label>
-                        <input type="number" id="moveX" placeholder="X" value="0">
+                        <input type="number" id="moveX" placeholder="X" value="0" />
                     </div>
                     <div>
                         <label for="moveY">Y Offset</label>
-                        <input type="number" id="moveY" placeholder="Y" value="0">
+                        <input type="number" id="moveY" placeholder="Y" value="0" />
                     </div>
                 </fieldset>
-                <fieldset role="group" style="padding: 5px;">
+                <fieldset role="group" style="padding: 5px">
                     <button id="dirClearButton">Zero</button>
                 </fieldset>
             </div>
-            <div class="grid" id="maskControls" style="width: 1200px;  display: none;">
+            <div class="grid" id="maskControls" style="width: 1200px; display: none">
                 <fieldset>
                     <legend>Mask Mode:</legend>
                     <input type="radio" id="drawRadio" name="maskMode" checked />
@@ -77,13 +77,18 @@
                     <h2>Preview</h2>
                     <div class="stack" id="previewStack">
                         <canvas width="32" height="32" id="backgroundCanvas"
-                            style="z-index: 9; pointer-events: none;"></canvas>
-                        <canvas width="32" height="32" id="previewCanvas" style="z-index: 10;"></canvas>
+                            style="z-index: 9; pointer-events: none"></canvas>
+                        <canvas width="32" height="32" id="previewCanvas" style="z-index: 10"></canvas>
                         <canvas width="32" height="32" id="previewOverlayCanvas"
-                            style="z-index: 11; pointer-events: none;"></canvas>
-                        <article id="unequalWarning"
-                            style="z-index: 15; visibility: hidden; position: absolute; inset: 20px;">
-                            <header><strong>⚠ Image dimensions are not equal!</strong>
+                            style="z-index: 11; pointer-events: none"></canvas>
+                        <article id="unequalWarning" style="
+                  z-index: 15;
+                  visibility: hidden;
+                  position: absolute;
+                  inset: 20px;
+                ">
+                            <header>
+                                <strong>⚠ Image dimensions are not equal!</strong>
                             </header>
                             <p>Make sure all images have equal sizes</p>
                             <div id="warnText">
@@ -96,7 +101,7 @@
                     </div>
                     <label>
                         Upload Background Image
-                        <input type="file" name="backgroundFile" id="backgroundFile" accept="image/*"></label>
+                        <input type="file" name="backgroundFile" id="backgroundFile" accept="image/*" /></label>
                     <label>
                         Background Opacity
                         <input id="backgroundOpacity" type="range" value="100" />
@@ -105,32 +110,30 @@
                         Overlay Opacity
                         <input id="previewOpacity" type="range" value="100" />
                     </label>
-
                 </article>
                 <article class="canvas-holder">
                     <h2>Reference Image</h2>
                     <div class="stack" id="refStack">
-                        <canvas width="32" height="32" id="refCanvas" style="z-index: 10;"></canvas>
+                        <canvas width="32" height="32" id="refCanvas" style="z-index: 10"></canvas>
                         <canvas width="32" height="32" id="refOverlayCanvas"
-                            style="z-index: 11; pointer-events: none;"></canvas>
+                            style="z-index: 11; pointer-events: none"></canvas>
                     </div>
                     <label>
                         Upload Reference Image
-                        <input type="file" name="refFile" id="refFile" accept="image/*">
+                        <input type="file" name="refFile" id="refFile" accept="image/*" />
                     </label>
                 </article>
                 <article class="canvas-holder">
                     <h2>Displacement Map</h2>
                     <div class="stack" id="mapStack">
-                        <canvas width="32" height="32" id="mapCanvas" style="z-index: 10;"></canvas>
+                        <canvas width="32" height="32" id="mapCanvas" style="z-index: 10"></canvas>
                         <canvas width="32" height="32" id="mapOverlayCanvas"
-                            style="z-index: 11; pointer-events: none;"></canvas>
+                            style="z-index: 11; pointer-events: none"></canvas>
                     </div>
                     <label>
                         Upload Displacement Map
-                        <input type="file" name="mapFile" id="mapFile" accept="image/*">
+                        <input type="file" name="mapFile" id="mapFile" accept="image/*" />
                     </label>
-
 
                     Create Blank Displacement Map
                     <fieldset class="grid">
@@ -139,12 +142,10 @@
                         <input id="newMapButton" type="button" value="Create" />
                     </fieldset>
 
-
                     <button id="exportButton">Export Displacement Map</button>
                 </article>
             </div>
         </div>
-
     </main>
 </body>
 
