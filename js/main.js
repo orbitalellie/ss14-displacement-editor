@@ -236,6 +236,7 @@ function setPixelDisplacement(pixelX, pixelY, deltaX, deltaY) {
   mapData.data[index] = 128 + deltaX;
   mapData.data[index + 1] = 128 + deltaY;
   mapData.data[index + 2] = deltaX == 0 && deltaY == 0 ? 0 : 64;
+  mapData.data[index + 3] = 255;
   setCanvasImageData(mapCanvas, mapData);
   updatePreview();
   drawVectorField();
