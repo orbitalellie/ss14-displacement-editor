@@ -534,6 +534,8 @@ function resizeCanvases() {
   mapVectorCanvas.width = mapCanvasWidth;
   mapVectorCanvas.height = mapCanvasHeight;
 
+  drawVectorField();
+
   mapStack.style.aspectRatio = mapCanvasWidth / mapCanvasHeight;
 
   var refCanvasWidth = refCanvas.clientWidth;
