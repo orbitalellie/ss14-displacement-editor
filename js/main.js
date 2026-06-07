@@ -5,6 +5,7 @@ const previewCanvas = document.getElementById("previewCanvas");
 const backgroundCanvas = document.getElementById("backgroundCanvas");
 
 const mapOverlayCanvas = document.getElementById("mapOverlayCanvas");
+const mapVectorCanvas = document.getElementById("mapVectorCanvas");
 const mapCanvas = document.getElementById("mapCanvas");
 
 const refOverlayCanvas = document.getElementById("refOverlayCanvas");
@@ -237,6 +238,7 @@ function setPixelDisplacement(pixelX, pixelY, deltaX, deltaY) {
   mapData.data[index + 2] = deltaX == 0 && deltaY == 0 ? 0 : 64;
   setCanvasImageData(mapCanvas, mapData);
   updatePreview();
+  drawVectorField();
 }
 
 function setPixelMask(pixelX, pixelY, masked) {
@@ -252,6 +254,7 @@ function setPixelMask(pixelX, pixelY, masked) {
   }
   setCanvasImageData(mapCanvas, mapData);
   updatePreview();
+  drawVectorField();
 }
 
 function setForwardMode() {
@@ -423,6 +426,7 @@ function setMapData(data) {
   mapData = data;
   setCanvasImageData(mapCanvas, mapData);
   updatePreview();
+  drawVectorField();
   validateSizes();
 }
 
@@ -526,6 +530,9 @@ function resizeCanvases() {
 
   mapOverlayCanvas.width = mapCanvasWidth;
   mapOverlayCanvas.height = mapCanvasHeight;
+  
+  mapVectorCanvas.width = mapCanvasWidth;
+  mapVectorCanvas.height = mapCanvasHeight;
 
   mapStack.style.aspectRatio = mapCanvasWidth / mapCanvasHeight;
 
@@ -707,6 +714,42 @@ function drawControlsMap(mouseX, mouseY) {
   drawCursor(mapOverlayCanvas, mouseX, mouseY);
 }
 
+function drawVectorField() {
+  if (!mapData) {
+    return;
+  }
+  clearCanvas(mapVectorCanvas)
+
+  var w = mapData.width;
+  var h = mapData.height;
+
+  for (var i = 0; i < mapData.data.length; i += 4) {
+    if (mapData.data[i + 3] == 0) {
+      continue;
+    }
+
+    const pixel = i / 4;
+    const x = pixel % w;
+    const y = Math.floor(pixel / w);
+
+    const xDisp = mapData.data[i] - 128;
+    const yDisp = mapData.data[i + 1] - 128;
+
+    const newX = x + xDisp;
+    const newY = y + yDisp;
+
+    drawArrowOnCanvas(
+      mapVectorCanvas,
+      (newX + 0.5) * pixelSizeX,
+      (newY + 0.5) * pixelSizeY,
+      (x + 0.5) * pixelSizeX,
+      (y + 0.5) * pixelSizeY,
+      2,
+      1
+    );
+  }
+}
+
 function drawCursor(canvas, mouseX, mouseY) {
   clearCanvas(canvas);
   drawCrosshairsOnCanvas(canvas, mouseX, mouseY, 1);
@@ -781,14 +824,20 @@ function drawCrosshairsOnCanvas(canvas, x, y, linewidth) {
   ctx.restore();
 }
 
-function drawArrowOnCanvas(canvas, originX, originY, endX, endY) {
+function drawArrowOnCanvas(
+  canvas,
+  originX,
+  originY,
+  endX,
+  endY,
+  arrowSize = 5,
+  arrowMargin = 3
+) {
   var length = Math.sqrt(
     (endX - originX) * (endX - originX) + (endY - originY) * (endY - originY)
   );
   var unitX = (endX - originX) / length;
   var unitY = (endY - originY) / length;
-  const arrowSize = 5;
-  const arrowMargin = 3;
 
   var ctx = canvas.getContext("2d");
   ctx.save();
