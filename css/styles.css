@@ -1,0 +1,26 @@
+canvas {
+    width: 100%;
+    image-rendering: pixelated;
+    display: block;
+    margin: 0 auto;
+  }
+
+.canvas-holder {
+    text-align: center;
+}
+
+.stack {
+    position: relative;
+    aspect-ratio: 1;
+    margin: 15px auto;
+    max-width: 700px;
+    background: 
+    repeating-conic-gradient(#F0F0F0 0 25%, #ffffffff 0 50%) 
+      50% / 16px 16px
+}
+.stack canvas {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+}
